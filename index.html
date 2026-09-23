@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flores Amarillas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 1rem;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(#fefdfb, #fff3d6);
+        }
+        #ramo {
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+            margin-bottom: 140px;
+            animation: balanceo 4.5s ease-in-out infinite;
+        }
+        @keyframes balanceo {
+            0%, 100% {
+                rotate: -1.2deg;
+            }
+            50% {
+                rotate: 1.2deg;
+            }
+        }
+        .sombra-suelo {
+            position: absolute;
+            width: 210px;
+            height: 26px;
+            top: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3), transparent 70%);
+            filter: blur(3px);
+            z-index: -7;
+        }
+        .envoltura-papel {
+            position: absolute;
+            width: 312px;
+            height: 250px;
+            top: -33px;
+            left: 50%;
+            transform: translateX(-50%);
+            filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.22));
+            z-index: -5;
+            animation: latido 2.5s ease-in-out infinite;
+        }
+        @keyframes latido {
+            0%, 100% {
+                scale: 1;
+            }
+            10% {
+                scale: 1.05;
+            }
+            20% {
+                scale: 1;
+            }
+            30% {
+                scale: 1.05;
+            }
+            40% {
+                scale: 1;
+            }
+        }
+        .liston {
+            position: absolute;
+            width: 150px;
+            height: 36px;
+            top: 88px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            background: linear-gradient(180deg, #FFDE7A, #F2B705);
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
+            z-index: 1;
+        }
+        .moño-cola-izq, .moño-cola-der {
+            position: absolute;
+            width: 16px;
+            height: 46px;
+            top: 90px;
+            left: 50%;
+            background: linear-gradient(180deg, #FFDE7A, #E8A800);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 78%, 50% 100%, 0% 78%);
+            z-index: 2;
+        }
+        .moño-cola-izq {
+            transform: translateX(calc(-50% - 12px)) rotate(-16deg);
+            transform-origin: 50% 0%;
+        }
+        .moño-cola-der {
+            transform: translateX(calc(-50% + 12px)) rotate(16deg);
+            transform-origin: 50% 0%;
+        }
+        .moño-ala-izq, .moño-ala-der {
+            position: absolute;
+            width: 50px;
+            height: 20px;
+            top: 85px;
+            left: 50%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFE58A, #F2B705);
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+            z-index: 3;
+        }
+        .moño-ala-izq {
+            transform: translateX(calc(-50% - 24px)) rotate(-22deg);
+        }
+        .moño-ala-der {
+            transform: translateX(calc(-50% + 24px)) rotate(22deg);
+        }
+        .moño-nudo {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 79px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            background: linear-gradient(160deg, #FFE58A, #E8A800);
+            border-radius: 4px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 4;
+        }
+        .hoja {
+            position: absolute;
+            width: 30px;
+            height: 100px;
+            bottom: 0;
+            left: 50%;
+            transform-origin: 50% 100%;
+        }
+        .hoja-1 {
+            transform: translateX(110px) translateY(10px) rotate(50deg);
+            z-index: -3;
+        }
+        .hoja-2 {
+            transform: translateX(55px) translateY(-25px) rotate(35deg);
+            z-index: -2;
+        }
+        .hoja-3 {
+            transform: translateX(0px) translateY(-40px) rotate(0deg);
+            z-index: -1;
+        }
+        .hoja-4 {
+            transform: translateX(-55px) translateY(-25px) rotate(-35deg);
+            z-index: -2;
+        }
+        .hoja-5 {
+            transform: translateX(-110px) translateY(10px) rotate(-50deg);
+            z-index: -3;
+        }
+        .flor {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: -15px;
+            filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.16));
+            animation-name: abrirFlor;
+            animation-duration: 0.7s;
+            animation-timing-function: ease-out;
+            animation-fill-mode: both;
+        }
+        .flor-1 {
+            transform: translateY(0px) rotate(-25deg);
+            animation-delay: 0s;
+        }
+        .flor-2 {
+            transform: translateY(-20px) rotate(-15deg);
+            animation-delay: 0.15s;
+        }
+        .flor-3 {
+            transform: translateY(-40px) rotate(0deg);
+            animation-delay: 0.3s;
+        }
+        .flor-4 {
+            transform: translateY(-20px) rotate(15deg);
+            animation-delay: 0.45s;
+        }
+        .flor-5 {
+            transform: translateY(0px) rotate(25deg);
+            animation-delay: 0.6s;
+        }
+        @keyframes abrirFlor {
+            0% {
+                opacity: 0;
+                scale: 0;
+            }
+            80% {
+                opacity: 1;
+                scale: 1.1;
+            }
+            100% {
+                opacity: 1;
+                scale: 1;
+            }
+        }
+        .tallo {
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: visible;
+        }
+        .flor-svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+        }
+        #btn-abrir {
+            padding: 0.85rem 1.8rem;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            color: #1d1d1f;
+            background: #ffffff;
+            border: none;
+            border-radius: 999px;
+            box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        #btn-abrir:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.16);
+        }
+        #etiqueta-para {
+            position: relative;
+            z-index: 10;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #8A2846;
+            background: #fffdf8;
+            padding: 0.5rem 1.4rem;
+            border-radius: 999px;
+            border: 2px dashed #F2B705;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+            rotate: -3deg;
+            margin-bottom: 0.5rem;
+            top: -50px;
+        }
+        #mensaje {
+            opacity: 0;
+            transition: opacity 0.5s;
+            font-size: 1.1rem;
+            color: #1d1d1f;
+            max-width: 320px;
+            text-align: center;
+            line-height: 1.5;
+            padding: 0 1rem;
+        }
+        #mensaje.visible {
+            opacity: 1;
+        }
+        .confeti {
+            position: fixed;
+            top: -14px;
+            width: 14px;
+            height: 12px;
+            z-index: 999;
+            pointer-events: none;
+            clip-path: path("M7,12 C7,12 1,7 1,3.5 C1,1.5 2.3,0 4.2,0 C5.6,0 6.6,1 7,2 C7.4,1 8.4,0 9.8,0 C11.7,0 13,1.5 13,3.5 C13,7 7,12 7,12 Z");
+            animation-name: caer-confeti;
+            animation-timing-function: ease-in;
+            animation-fill-mode: forwards;
+        }
+        @keyframes caer-confeti {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        #pato {
+            position: fixed;
+            bottom: 30px;
+            left: -160px;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+        }
+        #pato.caminando {
+            animation: caminar-pato 3.5s ease-in-out forwards;
+        }
+        @keyframes caminar-pato {
+            0% {
+                left: -160px;
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            10% {
+                transform: translateY(-8px) rotate(-4deg);
+            }
+            20% {
+                transform: translateY(0) rotate(0deg);
+            }
+            30% {
+                transform: translateY(-8px) rotate(4deg);
+            }
+            40% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                left: 45vw;
+                transform: translateY(-8px) rotate(-4deg);
+            }
+            60% {
+                transform: translateY(0) rotate(0deg);
+            }
+            70% {
+                transform: translateY(-8px) rotate(4deg);
+            }
+            80% {
+                transform: translateY(0) rotate(0deg);
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                left: 110vw;
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <svg width="0" height="0" style="position: absolute;">
+        <defs>
+            <linearGradient id="tallo-grad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#9FC97A" />
+                <stop offset="45%" stop-color="#6B8E4E" />
+                <stop offset="100%" stop-color="#3B5323" />
+            </linearGradient>
+            <linearGradient id="petalo-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#FFE066" />
+                <stop offset="100%" stop-color="#F2B705" />
+            </linearGradient>
+            <radialGradient id="centro-grad" cx="35%" cy="35%" r="75%">
+                <stop offset="0%" stop-color="#8B5A2B" />
+                <stop offset="60%" stop-color="#5C3818" />
+                <stop offset="100%" stop-color="#2E1A0C" />
+            </radialGradient>
+            <path id="petalo-largo" d="M0,0 C-8,-16 -6,-40 0,-48 C6,-40 8,-16 0,0 Z" fill="url(#petalo-grad)" />
+            <path id="petalo-corto" d="M0,0 C-6,-13 -5,-34 0,-41 C5,-34 6,-13 0,0 Z" fill="url(#petalo-grad)" />
+
+            <linearGradient id="hoja-grad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#9CC978" />
+                <stop offset="55%" stop-color="#6B8E4E" />
+                <stop offset="100%" stop-color="#3F5C28" />
+            </linearGradient>
+            <linearGradient id="papel-atras-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#6B1E38" />
+                <stop offset="100%" stop-color="#3D0F1F" />
+            </linearGradient>
+            <linearGradient id="papel-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#8A2846" />
+                <stop offset="100%" stop-color="#5A1128" />
+            </linearGradient>
+            <linearGradient id="pato-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#FFE380" />
+                <stop offset="100%" stop-color="#FFC93C" />
+            </linearGradient>
+            <linearGradient id="pato-ala-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FFCE54" />
+                <stop offset="100%" stop-color="#F2A93C" />
+            </linearGradient>
+            <g id="hoja-forma">
+                <path d="M0,0 C-11,-28 -9,-72 0,-98 C9,-72 11,-28 0,0 Z" fill="url(#hoja-grad)" />
+                <path d="M0,-6 C-1,-32 -1,-65 0,-90" stroke="rgba(0,0,0,0.22)" stroke-width="1.5" fill="none" />
+            </g>
+        </defs>
+    </svg>
+    <div id="etiqueta-para">Para: Mi Amor 💛</div>
+    <div id="ramo">
+        <div class="sombra-suelo">
+        </div>
+        <svg class="envoltura-papel" viewBox="-6 -8 318 258">
+            <path d="M150,248 C150,248 8,150 8,82 C8,28 58,-2 102,17 C127,28 144,50 150,72 C156,50 173,28 198,17 C242,-2 292,28 292,82 C292,150 150,248 150,248 Z" fill="url(#papel-atras-grad)" />
+            <path d="M150,235 C150,235 20,145 20,85 C20,35 65,8 105,25 C128,35 143,55 150,75 C157,55 172,35 195,25 C235,8 280,35 280,85 C280,145 150,235 150,235 Z" fill="url(#papel-grad)" />
+            <ellipse cx="105" cy="75" rx="55" ry="24" fill="rgba(255,255,255,0.1)" />
+            <path d="M150,75 C150,75 149,155 150,225" stroke="rgba(0,0,0,0.15)" stroke-width="3" fill="none" />
+        </svg>
+        <div class="liston">
+        </div>
+        <div class="moño-cola-izq">
+        </div>
+        <div class="moño-cola-der">
+        </div>
+        <div class="moño-ala-izq">
+        </div>
+        <div class="moño-ala-der">
+        </div>
+        <div class="moño-nudo">
+        </div>
+        <svg class="tallo tallo-1" width="280" height="100" viewBox="-140 -100 280 100">
+            <path d="M0,0 Q -60,-30 -130,-50" stroke="url(#tallo-grad)" stroke-width="7" stroke-linecap="round" fill="none" />
+        </svg>
+        <svg class="tallo tallo-2" width="280" height="100" viewBox="-140 -100 280 100">
+            <path d="M0,0 Q -35,-45 -65,-75" stroke="url(#tallo-grad)" stroke-width="7" stroke-linecap="round" fill="none" />
+        </svg>
+        <svg class="tallo tallo-3" width="280" height="110" viewBox="-140 -110 280 110">
+            <path d="M0,0 Q 5,-55 0,-95" stroke="url(#tallo-grad)" stroke-width="7" stroke-linecap="round" fill="none" />
+        </svg>
+        <svg class="tallo tallo-4" width="280" height="100" viewBox="-140 -100 280 100">
+            <path d="M0,0 Q 35,-45 65,-75" stroke="url(#tallo-grad)" stroke-width="7" stroke-linecap="round" fill="none" />
+        </svg>
+        <svg class="tallo tallo-5" width="280" height="100" viewBox="-140 -100 280 100">
+            <path d="M0,0 Q 60,-30 130,-50" stroke="url(#tallo-grad)" stroke-width="7" stroke-linecap="round" fill="none" />
+        </svg>
+        <svg class="hoja hoja-1" viewBox="-15 -100 30 100">
+            <use href="#hoja-forma" />
+        </svg>
+        <svg class="hoja hoja-2" viewBox="-15 -100 30 100">
+            <use href="#hoja-forma" />
+        </svg>
+        <svg class="hoja hoja-3" viewBox="-15 -100 30 100">
+            <use href="#hoja-forma" />
+        </svg>
+        <svg class="hoja hoja-4" viewBox="-15 -100 30 100">
+            <use href="#hoja-forma" />
+        </svg>
+        <svg class="hoja hoja-5" viewBox="-15 -100 30 100">
+            <use href="#hoja-forma" />
+        </svg>
+        <div class="flor flor-1">
+            <svg class="flor-svg" viewBox="-50 -50 100 100">
+                <use href="#petalo-largo" transform="rotate(0)" />
+                <use href="#petalo-corto" transform="rotate(30)" />
+                <use href="#petalo-largo" transform="rotate(60)" />
+                <use href="#petalo-corto" transform="rotate(90)" />
+                <use href="#petalo-largo" transform="rotate(120)" />
+                <use href="#petalo-corto" transform="rotate(150)" />
+                <use href="#petalo-largo" transform="rotate(180)" />
+                <use href="#petalo-corto" transform="rotate(210)" />
+                <use href="#petalo-largo" transform="rotate(240)" />
+                <use href="#petalo-corto" transform="rotate(270)" />
+                <use href="#petalo-largo" transform="rotate(300)" />
+                <use href="#petalo-corto" transform="rotate(330)" />
+                <circle r="15" fill="url(#centro-grad)" />
+                <circle r="11" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+                <circle r="6" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+            </svg>
+        </div>
+        <div class="flor flor-2">
+            <svg class="flor-svg" viewBox="-50 -50 100 100">
+                <use href="#petalo-largo" transform="rotate(0)" />
+                <use href="#petalo-corto" transform="rotate(30)" />
+                <use href="#petalo-largo" transform="rotate(60)" />
+                <use href="#petalo-corto" transform="rotate(90)" />
+                <use href="#petalo-largo" transform="rotate(120)" />
+                <use href="#petalo-corto" transform="rotate(150)" />
+                <use href="#petalo-largo" transform="rotate(180)" />
+                <use href="#petalo-corto" transform="rotate(210)" />
+                <use href="#petalo-largo" transform="rotate(240)" />
+                <use href="#petalo-corto" transform="rotate(270)" />
+                <use href="#petalo-largo" transform="rotate(300)" />
+                <use href="#petalo-corto" transform="rotate(330)" />
+                <circle r="15" fill="url(#centro-grad)" />
+                <circle r="11" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+                <circle r="6" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+            </svg>
+        </div>
+        <div class="flor flor-3">
+            <svg class="flor-svg" viewBox="-50 -50 100 100">
+                <use href="#petalo-largo" transform="rotate(0)" />
+                <use href="#petalo-corto" transform="rotate(30)" />
+                <use href="#petalo-largo" transform="rotate(60)" />
+                <use href="#petalo-corto" transform="rotate(90)" />
+                <use href="#petalo-largo" transform="rotate(120)" />
+                <use href="#petalo-corto" transform="rotate(150)" />
+                <use href="#petalo-largo" transform="rotate(180)" />
+                <use href="#petalo-corto" transform="rotate(210)" />
+                <use href="#petalo-largo" transform="rotate(240)" />
+                <use href="#petalo-corto" transform="rotate(270)" />
+                <use href="#petalo-largo" transform="rotate(300)" />
+                <use href="#petalo-corto" transform="rotate(330)" />
+                <circle r="15" fill="url(#centro-grad)" />
+                <circle r="11" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+                <circle r="6" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+            </svg>
+        </div>
+        <div class="flor flor-4">
+            <svg class="flor-svg" viewBox="-50 -50 100 100">
+                <use href="#petalo-largo" transform="rotate(0)" />
+                <use href="#petalo-corto" transform="rotate(30)" />
+                <use href="#petalo-largo" transform="rotate(60)" />
+                <use href="#petalo-corto" transform="rotate(90)" />
+                <use href="#petalo-largo" transform="rotate(120)" />
+                <use href="#petalo-corto" transform="rotate(150)" />
+                <use href="#petalo-largo" transform="rotate(180)" />
+                <use href="#petalo-corto" transform="rotate(210)" />
+                <use href="#petalo-largo" transform="rotate(240)" />
+                <use href="#petalo-corto" transform="rotate(270)" />
+                <use href="#petalo-largo" transform="rotate(300)" />
+                <use href="#petalo-corto" transform="rotate(330)" />
+                <circle r="15" fill="url(#centro-grad)" />
+                <circle r="11" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+                <circle r="6" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+            </svg>
+        </div>
+        <div class="flor flor-5">
+            <svg class="flor-svg" viewBox="-50 -50 100 100">
+                <use href="#petalo-largo" transform="rotate(0)" />
+                <use href="#petalo-corto" transform="rotate(30)" />
+                <use href="#petalo-largo" transform="rotate(60)" />
+                <use href="#petalo-corto" transform="rotate(90)" />
+                <use href="#petalo-largo" transform="rotate(120)" />
+                <use href="#petalo-corto" transform="rotate(150)" />
+                <use href="#petalo-largo" transform="rotate(180)" />
+                <use href="#petalo-corto" transform="rotate(210)" />
+                <use href="#petalo-largo" transform="rotate(240)" />
+                <use href="#petalo-corto" transform="rotate(270)" />
+                <use href="#petalo-largo" transform="rotate(300)" />
+                <use href="#petalo-corto" transform="rotate(330)" />
+                <circle r="15" fill="url(#centro-grad)" />
+                <circle r="11" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+                <circle r="6" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+            </svg>
+        </div>
+    </div>
+    <svg id="pato" viewBox="0 0 155 110" width="155" height="110" style="filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.2));">
+        <path d="M18,75 C6,68 6,50 22,42 C28,20 60,10 90,20 C112,16 132,28 130,45 C142,45 144,62 130,66 C126,84 98,94 68,90 C40,94 16,88 18,75 Z" fill="url(#pato-grad)" />
+        <path d="M20,58 C12,55 7,62 14,69 C20,71 27,65 24,58 Z" fill="url(#pato-ala-grad)" />
+        <path d="M55,48 C40,44 33,58 45,70 C56,74 68,62 63,51 Z" fill="url(#pato-ala-grad)" />
+        <circle cx="106" cy="38" r="24" fill="url(#pato-grad)" />
+        <path d="M125,35 C134,30 146,33 148,40 C146,47 134,46 125,42 Z" fill="#FF9F1C" />
+        <circle cx="113" cy="31" r="4.2" fill="#2E1A0C" />
+        <circle cx="114.5" cy="29.3" r="1.4" fill="#ffffff" />
+        <ellipse cx="55" cy="98" rx="10" ry="3.5" fill="#FF9F1C" />
+        <ellipse cx="85" cy="100" rx="10" ry="3.5" fill="#FF9F1C" />
+        <g transform="translate(150,40) scale(0.42) rotate(-15)">
+            <use href="#petalo-largo" transform="rotate(0)" />
+            <use href="#petalo-largo" transform="rotate(72)" />
+            <use href="#petalo-largo" transform="rotate(144)" />
+            <use href="#petalo-largo" transform="rotate(216)" />
+            <use href="#petalo-largo" transform="rotate(288)" />
+            <circle r="10" fill="url(#centro-grad)" />
+        </g>
+    </svg>
+    <button id="btn-abrir"> Abrir mi ramo 🌼</button>
+    <div id="mensaje"></div>
+
+    <script>
+        const BtnAbrir = document.getElementById("btn-abrir");
+        const mensaje = "¡Felicidades! Has abierto tu ramo de flores amarillas. 🌼🌼🌼";
+
+        function lanzarConfeti() {
+            const colores = ["#FFD60A", "#FF9500", "#6B8E4E", "#FFFFFF", "#E8A33D"];
+            for (let i = 0; i < 60; i++) {
+                const pieza = document.createElement("div");
+                pieza.classList.add("confeti");
+                pieza.style.left = Math.random() * 100 + "vw";
+                pieza.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)];
+                pieza.style.animationDuration = (2 + Math.random() * 1.5) + "s";
+                pieza.style.animationDelay = (Math.random() * 0.4) + "s";
+                document.body.appendChild(pieza);
+                setTimeout(() => pieza.remove(), 4000);
+            }
+        }
+
+        function reiniciarAnimacion(elemento) {
+            elemento.style.animation = "none";
+            void elemento.offsetWidth;
+            elemento.style.animation = "";
+        }
+
+        BtnAbrir.addEventListener("click", function() {
+            BtnAbrir.style.display = "none";
+            const Mensaje = document.getElementById("mensaje");
+            Mensaje.classList.add("visible");
+
+            document.querySelectorAll(".flor").forEach(reiniciarAnimacion);
+            lanzarConfeti();
+
+            const Pato = document.getElementById("pato");
+            Pato.classList.add("caminando");
+
+            const letras = Array.from(mensaje);
+            let i = 0;
+            const intervalo = setInterval(() => {
+                Mensaje.textContent += letras[i];
+                i++;
+                if (i >= letras.length) {
+                    clearInterval(intervalo);
+                }
+            }, 60);
+        });
+    </script>
+</body>
+</html>
